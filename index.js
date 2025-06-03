@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT) || 587,
   secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER,
+    user: process.env.DEST_EMAIL,
     pass: process.env.SMTP_PASS
   }
 });
@@ -29,7 +29,7 @@ app.post('/send-email', async (req, res) => {
   }
   try {
     const info = await transporter.sendMail({
-      from: `"Render Email Server" <${process.env.SMTP_USER}>`,
+      from: `"Render Email Server" <${process.env.DEST_EMAIL}>`,
       to,
       subject,
       text,
